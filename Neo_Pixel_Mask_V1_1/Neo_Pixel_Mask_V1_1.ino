@@ -5,30 +5,54 @@
 #define ringsize 12
 
 /* globals here*/
-CRGB ringleft[ringsize], ringright[ringsize];
-CRGB *pringleft = &(ringleft[0]), *pringright = &(ringright[0]);
-CHSV hringleft[ringsize], hringright[ringsize];
-CHSV oringleft1[ringsize], oringright1[ringsize], oringleft2[ringsize],oringright2[ringsize];
-CHSV *phringleft = &(hringleft[0]), *phringright = &(hringright[0]);
-CHSV *poringleft1 = &(oringleft1[0]), *poringright1=&(oringright1[0]), *poringleft2=&(oringleft2[0]);
-CHSV *poringright2=&(oringright2[0]);
-bool lit_hringleft[ringsize],lit_hringright[ringsize], lit_oringleft1[ringsize],lit_oringright1[ringsize];
-bool lit_oringleft2[ringsize],lit_oringright2[ringsize];
-bool *plit_hringleft=&(lit_hringleft[0]),*plit_hringright=&(lit_hringright[0]);
-bool *plit_oringleft1=&(lit_oringleft1[0]),*plit_oringright1=&(lit_oringright1[0]);
-bool *plit_oringleft2=&(lit_oringleft2[0]),*plit_oringright2=&(lit_oringright2[0]);
-uint8_t brightness = 50;
+CRGB ringLeft[ringsize], ringRight[ringsize];
+CRGB *pringLeft = &(ringLeft[0]), *pringRight = &(ringRight[0]);
+CHSV hringLeft[ringsize], hringRight[ringsize];
+CHSV oringLeft1[ringsize], oringRight1[ringsize], oringLeft2[ringsize], oringRight2[ringsize];
+CHSV *phringLeft = &(hringLeft[0]), *phringRight = &(hringRight[0]);
+CHSV *poringLeft1 = &(oringLeft1[0]), *poringRight1 = &(oringRight1[0]), *poringLeft2 = &(oringLeft2[0]);
+CHSV *poringRight2 = &(oringRight2[0]);
+bool lit_hringLeft[ringsize], lit_hringRight[ringsize], lit_oringLeft1[ringsize], lit_oringRight1[ringsize];
+bool lit_oringLeft2[ringsize], lit_oringRight2[ringsize];
+bool *plit_hringLeft = &(lit_hringLeft[0]), *plit_hringRight = &(lit_hringRight[0]);
+bool *plit_oringLeft1 = &(lit_oringLeft1[0]), *plit_oringRight1 = &(lit_oringRight1[0]);
+bool *plit_oringLeft2 = &(lit_oringLeft2[0]), *plit_oringRight2 = &(lit_oringRight2[0]);
+uint8_t bRightness = 50;
 int8_t mirror_shift = 6;
 
 void setup() {
-  FastLED.addLeds<NEOPIXEL, DATA_PIN>(ringleft, ringsize);
-  FastLED.addLeds<NEOPIXEL, DATA_PIN2>(ringright, ringsize);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN>(ringLeft, ringsize);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN2>(ringRight, ringsize);
   /*declaring same variable to two data pins creates two identical
      rings
   */
-  findLit(&(hringleft[0]), ringsize, &(lit_hringleft[0]));
+  findLit(&(hringLeft[0]), ringsize, &(lit_hringLeft[0]));
 }
 
 void loop() {
-  randomHueBlink(phringleft, phringright, pringleft, pringright, ringsize, 5, 5, plit_hringleft,plit_hringright, 75);
+  // now we start working on primary animation sequences
+  uint8_t numCases = 3;
+  uint8_t pickCase = random8(0, numCases);
+
+
+//  switch (pickCase) {
+//    case 0:
+//      { // animation 1
+//        calibrating();
+//
+//      }
+//    case 1:
+//      { // animation 2
+//
+//      }
+//    case 2:
+//      { // animation 3
+//
+//      }
+//
+//
+//
+//  }
+
+
 }
