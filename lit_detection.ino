@@ -1,4 +1,4 @@
-void findLit(CHSV *hsv,int8_t size_array, bool *lit_array) {
+void findLit(CHSV *hsv,int8_t size_array, bool *lit_array) { // TESTED appears to work
   for (int8_t i=0; i<size_array; i++) {
     if ((*(hsv+i)).v==0) {
       *(lit_array+i) = false;
@@ -9,7 +9,7 @@ void findLit(CHSV *hsv,int8_t size_array, bool *lit_array) {
   }
 }
 
-uint8_t findNumLit(CHSV *hsv,int8_t size_array, bool *lit_array) {
+uint8_t findNumLit(CHSV *hsv,int8_t size_array, bool *lit_array) { //TESTED
   uint8_t numlit=0;
   findLit(hsv,size_array,lit_array);
   for (int8_t i=0; i<size_array; i++) {

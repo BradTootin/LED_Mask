@@ -101,7 +101,7 @@ void animateORings(CHSV * hsvLeft, CHSV * hsvRight, CHSV * hsvOLeft1, CHSV * hsv
 }
 
 void fillRingRainbow(CHSV *hsvLeft, CHSV *hsvRight, CRGB *rgbLeft, CRGB *rgbRight, int8_t size_array, int8_t pixelStart , uint8_t hueStart, uint8_t hueStep) {
-  for (int8_t i = 0; i < size_array; i++) {
+  for (int8_t i = 0; i < size_array; i++) { //TESTED
     *(hsvLeft + (i + pixelStart) % size_array) = CHSV(hueStart + hueStep * i, 255, brightness);
   }
   copy_hsv2hsv(hsvLeft, hsvRight, size_array);
@@ -111,7 +111,7 @@ void fillRingRainbow(CHSV *hsvLeft, CHSV *hsvRight, CRGB *rgbLeft, CRGB *rgbRigh
 
 /* Rotation and over animation */
 void rotateRing(CHSV * hsvLeft, CHSV * hsvRight, CRGB * rgbLeft, CRGB * rgbRight, int8_t size_array, bool dir,
-                uint8_t nshifts, uint8_t hueShift, int wait) {
+                uint8_t nshifts, uint8_t hueShift, int wait) { // TESTED
   for (uint8_t i = 0; i < nshifts; i++) {
     circshift_ring(hsvLeft, hsvRight, rgbLeft, rgbRight, size_array, 1, dir);
     hueShiftRings(hsvLeft, hsvRight, rgbLeft, rgbRight, size_array, hueShift);

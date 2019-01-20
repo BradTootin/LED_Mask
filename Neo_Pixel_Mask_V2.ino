@@ -18,7 +18,7 @@ bool *plit_hringLeft = &(lit_hringLeft[0]), *plit_hringRight = &(lit_hringRight[
 bool *plit_oringLeft1 = &(lit_oringLeft1[0]), *plit_oringRight1 = &(lit_oringRight1[0]);
 bool *plit_oringLeft2 = &(lit_oringLeft2[0]), *plit_oringRight2 = &(lit_oringRight2[0]);
 uint8_t brightness = 50;
-int8_t mirror_shift = 6;
+int8_t mirror_shift = 0;
 
 void setup() {
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(ringLeft, ringsize);
@@ -31,19 +31,9 @@ void setup() {
 }
 
 void loop() {
-  // testing blank to neighbor and send to neighbor
+// HERE WE ARE TESTING WHETHER OR NOT queryItsLit and queryItsDark work properly
 
-  clear_leds(phringLeft,phringRight,pringLeft,pringRight,ringsize);
-  FastLED.show();
-  delay(90);
-  fill_solid( &(hringLeft[0]), 12, CHSV(random8(),255,0));
-  copy_hsv2hsv(phringLeft,phringRight,ringsize);
-  copy_hrings2rings(phringLeft,phringRight,pringLeft,pringRight,ringsize);
-  randomOnSlow(phringLeft,phringRight,pringLeft,pringRight,ringsize, 6, plit_hringLeft,plit_hringRight, 200);
-  delay(90);
-  fanOut(phringLeft,phringRight,pringLeft,pringRight, ringsize, true, plit_hringLeft,plit_hringRight, 100);
-  
-  
+
 
 
 }
