@@ -32,28 +32,18 @@ void setup() {
 
 void loop() {
   // testing blank to neighbor and send to neighbor
-  for (int8_t i = 0; i < 4; i++) {
-    *(phringLeft + random(0, 12)) = CHSV(random8(), 255, brightness);
-    copy_hsv2hsv(phringLeft, phringRight, ringsize);
-    reverseHSV(phringRight, ringsize);
-    copy_hrings2rings(phringLeft, phringRight, pringLeft, pringRight, ringsize);
-    FastLED.show();
-    delay(75);
-  }
-  for (int8_t i = 0; i < 3; i++) {
-    send2Neighbor(phringLeft, phringRight, pringLeft, pringRight, ringsize, true, plit_hringLeft, plit_hringRight);
-    FastLED.show();
-    delay(75);
-  }
-  for (int8_t i=0; i<6; i++ ) {
-    blank2Neighbor(phringLeft,phringRight,pringLeft,pringRight,ringsize, true, plit_hringLeft,plit_hringRight);
-    FastLED.show();
-    delay(75);
-  }
-  clear_leds(phringLeft,phringRight,pringLeft,pringRight,ringsize);
 
-  // testing randomHueBlink
-  randomHueBlink(phringLeft,phringRight,pringLeft,pringRight,ringsize,4, 8, plit_hringLeft,plit_hringRight, 100);
+  clear_leds(phringLeft,phringRight,pringLeft,pringRight,ringsize);
+  FastLED.show();
+  delay(90);
+  fill_solid( &(hringLeft[0]), 12, CHSV(random8(),255,0));
+  copy_hsv2hsv(phringLeft,phringRight,ringsize);
+  copy_hrings2rings(phringLeft,phringRight,pringLeft,pringRight,ringsize);
+  randomOnSlow(phringLeft,phringRight,pringLeft,pringRight,ringsize, 6, plit_hringLeft,plit_hringRight, 200);
+  delay(90);
+  fanOut(phringLeft,phringRight,pringLeft,pringRight, ringsize, true, plit_hringLeft,plit_hringRight, 100);
+  
+  
 
 
 }

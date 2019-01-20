@@ -21,11 +21,12 @@ void randomHueBlink(CHSV *hsvLeft, CHSV *hsvRight, CRGB *rgbLeft, CRGB *rgbRight
   }
 }
 
-void randomBlinkCurrentHue(CHSV *hsvLeft, CHSV *hsvRight, CRGB *rgbLeft, CRGB *rgbRight, int8_t size_array, uint8_t numOn,
-                           bool *litLeft, bool *litRight, int wait) { // using the hues values randomly turns on
-  uint8_t numlit;
-  numlit = findNumLit(hsvLeft, size_array, litLeft);
-  while (numlit != numOn) { //as long as the number lit isn't the number we want lit
+void randomOnSlow(CHSV *hsvLeft, CHSV *hsvRight, CRGB *rgbLeft, CRGB *rgbRight, int8_t size_array, uint8_t numOn,
+                           bool *litLeft, bool *litRight, int wait) { // using the hues values randomly turns on TESTED
+  uint8_t numLit;
+  numLit = findNumLit(hsvLeft, size_array, litLeft);
+//  int8_t loop_terminator = 0; // for debugging
+  while (numLit != numOn) { //as long as the number lit isn't the number we want lit
     int8_t ind = random8(0, size_array); // pick a random pixel on Left side mask
     if (!*(litLeft + ind)) { // if it's not lit
       (*(hsvLeft + ind)).v = brightness; // then make it lit motherfucker
@@ -35,14 +36,18 @@ void randomBlinkCurrentHue(CHSV *hsvLeft, CHSV *hsvRight, CRGB *rgbLeft, CRGB *r
       FastLED.show(); //show it
       delay(wait); // delay
     } //doesn't show or delay if it's not lit so it lights up one at a time
-    numlit = findNumLit(hsvLeft, size_array, litLeft);
+    numLit = findNumLit(hsvLeft, size_array, litLeft);
+//      loop_terminator++;
+
   }
+
+
 }
-void randomNumOn(CHSV * hsvLeft, CHSV * hsvRight, CRGB * rgbLeft, CRGB * rgbRight, int8_t size_array, uint8_t numOn,
+void randomOnSudden(CHSV * hsvLeft, CHSV * hsvRight, CRGB * rgbLeft, CRGB * rgbRight, int8_t size_array, uint8_t numOn,
                  bool * litLeft, bool * litRight, int wait) { // using the hues values randomly turns on some number of pixels all at once
-  uint8_t numlit;
-  numlit = findNumLit(hsvLeft, size_array, litLeft);
-  while (numlit != numOn) { //as long as the number lit isn't the number we want lit
+  uint8_t numLit;
+  numLit = findNumLit(hsvLeft, size_array, litLeft);
+  while (numLit != numOn) { //as long as the number lit isn't the number we want lit
     int8_t ind = random8(0, size_array); // pick a random pixel on Left side mask
     if (!*(litLeft + ind)) { // if it's not lit
       (*(hsvLeft + ind)).v = brightness; // then make it lit motherfucker
@@ -51,7 +56,7 @@ void randomNumOn(CHSV * hsvLeft, CHSV * hsvRight, CRGB * rgbLeft, CRGB * rgbRigh
       copy_hrings2rings(hsvLeft, hsvRight, rgbLeft, rgbRight, size_array);
 
     }
-    numlit = findNumLit(hsvLeft, size_array, litLeft);
+    numLit = findNumLit(hsvLeft, size_array, litLeft);
   }
   FastLED.show(); //show it
   delay(wait); // delay
@@ -119,7 +124,6 @@ void rotateRing(CHSV * hsvLeft, CHSV * hsvRight, CRGB * rgbLeft, CRGB * rgbRight
 void fanOut(CHSV *hsvLeft, CHSV *hsvRight, CRGB *rgbLeft, CRGB *rgbRight, int8_t size_array, bool dir, bool *litLeft, bool *litRight, int wait) {
   bool itsLit = queryItsLit(hsvLeft, litLeft, size_array);
   while (!itsLit) {
-
     send2Neighbor(hsvLeft, hsvRight, rgbLeft, rgbRight, size_array, dir, litLeft, litRight);
     FastLED.show();
     delay(wait);

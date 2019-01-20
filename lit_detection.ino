@@ -3,7 +3,7 @@ void findLit(CHSV *hsv,int8_t size_array, bool *lit_array) {
     if ((*(hsv+i)).v==0) {
       *(lit_array+i) = false;
     }
-    if((*(hsv+i)).v!=0) {
+    if((*(hsv+i)).v>0) {
       *(lit_array+i) = true;
     }
   }
