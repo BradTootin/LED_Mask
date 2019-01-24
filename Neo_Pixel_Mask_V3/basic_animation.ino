@@ -19,7 +19,7 @@ void randomHueBlink(uint8_t nPixels, uint8_t nBlinks, uint8_t hue_low, uint8_t h
         createUnlitList(phringLeft,&(unLitList[0]));
         numLit = findNumLit(phringLeft);
       }
-    prepLeds();
+    prepAll();
     FastLED.show();
     delay(wait);
   }

@@ -27,18 +27,13 @@ int8_t mirror_shift = 0;
 
 void setup() {
   FastLED.addLeds <NEOPIXEL, DATA_PIN>(ringLeft, ringsize);
-  FastLED.addLeds <NEOPIXEL, DATA_PIN2>(ringLeft, ringsize);
+  FastLED.addLeds <NEOPIXEL, DATA_PIN2>(ringRight, ringsize);
   clear_leds();
   prepAll();
 
 }
 
 void loop() {
-  randomHueBlink(5,5,104,200,75);
-  rotateRing(true,12,10,75);
-  randomHueBlink(5,5,0,96,75);
-  rotateRing(false,12,10,75);
-  randomHueBlink(5,5,200,255,75);
-  rotateRing(false,12,10,75);
+  calibrating(70,110);
 
 }

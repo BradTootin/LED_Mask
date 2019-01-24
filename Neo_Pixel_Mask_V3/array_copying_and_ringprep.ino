@@ -29,7 +29,7 @@ void reverse_hsv(CHSV *hsv) {
   CHSV dummy[ringsize];
   copy_hsv2hsv(hsv, &(dummy[0]));
   for (int8_t i=0; i<ringsize; i++) {
-    *(hsv+i) = dummy[(ringsize-1)%ringsize];
+    *(hsv+i) = dummy[(i+ringsize-1)%ringsize];
   }
 }
 
@@ -63,6 +63,8 @@ void prepLeds() {
 }
 
 void prepMirror() {
+  copy_hsv2hsv(phringLeft,phringRight);
+  circshift_hsv(phringRight,3,true);
   reverse_hsv(phringRight);
 }
 
