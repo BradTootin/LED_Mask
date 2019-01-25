@@ -31,9 +31,21 @@ void setup() {
   clear_leds();
   prepAll();
 
+
 }
 
 void loop() {
-  calibrating(70,110);
+  clear_leds();
+  bool clockways = true;
+  hringLeft[1] = CHSV(108,255,50);
+  prepAll();
+  FastLED.show();
+  delay(500);
+  fanOut(clockways,75);
+  oringLeft1[0] = CHSV(0,255,50);
+  oringLeft2[6] = CHSV(200,255,50);
+  prepOring();
+  animateOring(false,false,0,48,75);
+  
 
 }

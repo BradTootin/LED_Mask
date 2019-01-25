@@ -1,4 +1,4 @@
-void calibrating(uint8_t hueLow,uint8_t hueHigh) {
+bool calibrating(uint8_t hueLow,uint8_t hueHigh) {
   bool clockways = random(0,2);
   for (int8_t i=0; i< random(3,5); i++) {
     clockways = !clockways;
@@ -11,4 +11,5 @@ void calibrating(uint8_t hueLow,uint8_t hueHigh) {
     delay(200);
     rotateRing(!clockways, nShifts,0,75);
   }
+  return clockways;
 }

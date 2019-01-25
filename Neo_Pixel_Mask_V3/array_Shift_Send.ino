@@ -28,7 +28,7 @@ void circshift_rings(int nShifts, bool dir) {
   circshift_rgb(pringRight,nShifts,dir);
 }
 
-void cirshift_oring(int nShifts, bool dir) {
+void circshift_oring(int nShifts, bool dir) {
   circshift_hsv(poringLeft1,nShifts,dir);
   circshift_hsv(poringRight1,nShifts,!dir);
   circshift_hsv(poringLeft2,nShifts,!dir);
@@ -56,11 +56,12 @@ void hueShiftOring(uint8_t hueShift) {
 void send2Neighbor(CHSV *hsv, bool dir) {
   CHSV dummy[ringsize];
   copy_hsv2hsv(hsv, &(dummy[0]));
+//  clear_hsv(&(dummy[0]));
   // make a copy
   for (int8_t i = 0; i < ringsize; i++) {
     int8_t previous = (i - 1 + ringsize) % ringsize;
-    uint8_t previousVal = dummy[previous].v;
-    uint8_t currentVal = dummy[i].v;
+    uint8_t previousVal = (*(hsv+previous)).v;
+    uint8_t currentVal = (*(hsv+i)).v;
 
     //clockwise case
     if (dir) {
@@ -75,8 +76,9 @@ void send2Neighbor(CHSV *hsv, bool dir) {
         dummy[previous] = *(hsv + i);
       }
     }
-    copy_hsv2hsv(&(dummy[0]), hsv); // copy back
+    
   }
+  copy_hsv2hsv(&(dummy[0]), hsv); // copy back
 }
 
 void blank2Neighbor(CHSV *hsv, bool dir) {
@@ -100,6 +102,7 @@ void blank2Neighbor(CHSV *hsv, bool dir) {
         dummy[previous] = *(hsv + i);
       }
     }
-    copy_hsv2hsv(&(dummy[0]), hsv); // copy back
+    
   }
+  copy_hsv2hsv(&(dummy[0]), hsv); // copy back
 }

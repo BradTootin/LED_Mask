@@ -18,8 +18,8 @@ void copy_rgb2rgb(CRGB *rgbSrc, CRGB *rgbDest) {
 
 void copyIfSrcLit(CHSV *hsvSrc, CHSV *hsvDest) {
   for (int8_t i=0; i<ringsize; i++) {
-    if( (*(hsvSrc+i)).v > 0) {
-      (*hsvDest+i) = *(hsvSrc+i);
+    if( (*(hsvSrc+i)).v != 0) {
+      *(hsvDest+i) = *(hsvSrc+i);
     } 
   }
 }
@@ -57,12 +57,12 @@ void prepAll() {
   prepLeds();
 }
 
-void prepLeds() {
+void prepLeds() { // this function copies the left and right hrings to the rgb rings to ready for showing
   copy_hsv2rgb(phringLeft,pringLeft);
   copy_hsv2rgb(phringRight,pringRight);
 }
 
-void prepMirror() {
+void prepMirror() { // this function copies the left hring to right hring and then flips and rotates the right ring
   copy_hsv2hsv(phringLeft,phringRight);
   circshift_hsv(phringRight,3,true);
   reverse_hsv(phringRight);

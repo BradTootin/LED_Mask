@@ -36,7 +36,7 @@ void rotateRing(bool dir, int nShifts, uint8_t hueShift, int wait) {
   }
 }
 
-void animateOring(bool leaveTrail, uint8_t hueShift, int nShifts, int wait) {
+void animateOring(bool leaveTrail, bool dir,uint8_t hueShift, int nShifts, int wait) {
   CHSV dummyLeft[ringsize], dummyRight[ringsize];
   copy_hsv2hsv(phringLeft, &(dummyLeft[0]));
   copy_hsv2hsv(phringRight, &(dummyRight[0]));
@@ -49,9 +49,44 @@ void animateOring(bool leaveTrail, uint8_t hueShift, int nShifts, int wait) {
     FastLED.show();
     delay(wait);
     hueShiftOring(hueShift);
+    circshift_oring(1,dir);
     if (leaveTrail == false) {
       copy_hsv2hsv(&(dummyLeft[0]), phringLeft);
       copy_hsv2hsv(&(dummyRight[0]), phringRight);
     }
   }
+}
+
+void fanOut(bool dir, int wait) {
+  bool itsLitLeft = queryItsLit(phringLeft);
+  bool itsLitRight = queryItsLit(phringRight);
+  while(!itsLitLeft || !itsLitRight) {
+    send2Neighbor(phringLeft, dir);
+    send2Neighbor(phringRight,!dir);
+    prepLeds();
+    FastLED.show();
+    itsLitLeft = queryItsLit(phringLeft);
+    itsLitRight = queryItsLit(phringRight);
+    delay(wait);
+  }
+}
+void foldIn(bool dir, int wait) {
+  bool itsLitLeft = queryItsLit(phringLeft);
+  bool itsLitRight = queryItsLit(phringRight);
+  if (itsLitLeft || itsLitRight) {
+    return;
+  }
+  bool itsDarkLeft = queryItsDark(phringLeft);
+  bool itsDarkRight = queryItsDark(phringRight);
+
+  while(!itsDarkLeft || !itsDarkRight) {
+    blank2Neighbor(phringLeft, dir);
+    blank2Neighbor(phringRight,!dir);
+    prepLeds();
+    FastLED.show();
+    itsDarkLeft = queryItsDark(phringLeft);
+    itsDarkRight = queryItsDark(phringRight);
+    delay(wait);
+  }
+  
 }
